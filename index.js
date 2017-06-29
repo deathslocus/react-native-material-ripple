@@ -166,10 +166,6 @@ export default class Ripple extends PureComponent {
       disabled,
       hitSlop,
       pressRetentionOffset,
-      onPress,
-      onPressIn,
-      onPressOut,
-      onLongPress: props.onLongPress? onLongPress : undefined,
       onLayout,
     };
 
@@ -178,7 +174,7 @@ export default class Ripple extends PureComponent {
     };
 
     return (
-       <View onLayout={this.onLayout}>
+       <TouchableWithoutFeedback {...touchableProps}>
         <Animated.View {...props} pointerEvents='box-only'>
           {children}
 
@@ -186,7 +182,7 @@ export default class Ripple extends PureComponent {
             {ripples.map(this.renderRipple)}
           </View>
         </Animated.View>
-       </View>
+       </TouchableWithoutFeedback>
     );
   }
 }
