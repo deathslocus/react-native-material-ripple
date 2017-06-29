@@ -164,7 +164,7 @@ export default class Ripple extends PureComponent {
     };
 
     return (
-        <Animated.View {...props} pointerEvents='box-only' onLayout={onLayout} >
+        <Animated.View style={{zIndex: 1}} {...props} pointerEvents='box-only' onLayout={onLayout} >
           {children}
 
           <View style={[styles.container, containerStyle]}>
