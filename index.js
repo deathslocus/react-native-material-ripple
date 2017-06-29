@@ -145,14 +145,9 @@ export default class Ripple extends PureComponent {
 
   render() {
     let { ripples } = this.state;
-    let { onPress, onPressIn, onPressOut, onLongPress, onLayout } = this;
+    let { onLayout } = this;
     let {
-      delayLongPress,
-      delayPressIn,
-      delayPressOut,
       disabled,
-      hitSlop,
-      pressRetentionOffset,
       children,
       rippleContainerBorderRadius,
       onLayout: __ignored__,
@@ -160,12 +155,7 @@ export default class Ripple extends PureComponent {
     } = this.props;
 
     let touchableProps = {
-      delayLongPress,
-      delayPressIn,
-      delayPressOut,
-      disabled,
-      hitSlop,
-      pressRetentionOffset,
+      disabled, 
       onLayout,
     };
 
@@ -174,15 +164,13 @@ export default class Ripple extends PureComponent {
     };
 
     return (
-       <TouchableWithoutFeedback {...touchableProps}>
-        <Animated.View {...props} pointerEvents='box-only'>
+        <Animated.View {...props} pointerEvents='box-only' onLayout={onLayout} >
           {children}
 
           <View style={[styles.container, containerStyle]}>
             {ripples.map(this.renderRipple)}
           </View>
         </Animated.View>
-       </TouchableWithoutFeedback>
     );
   }
 }
