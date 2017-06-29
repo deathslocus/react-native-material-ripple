@@ -5,8 +5,6 @@ import { styles, radius } from './styles.js';
 
 export default class Ripple extends PureComponent {
   static defaultProps = {
-    ...TouchableWithoutFeedback.defaultProps,
-
     rippleColor: 'rgb(0, 0, 0)',
     rippleOpacity: 0.30,
     rippleDuration: 400,
@@ -19,8 +17,6 @@ export default class Ripple extends PureComponent {
 
   static propTypes = {
     ...Animated.View.propTypes,
-    ...TouchableWithoutFeedback.propTypes,
-
     rippleColor: PropTypes.string,
     rippleOpacity: PropTypes.number,
     rippleDuration: PropTypes.number,
@@ -182,6 +178,7 @@ export default class Ripple extends PureComponent {
     };
 
     return (
+       <View onLayout={this.onLayout}>
         <Animated.View {...props} pointerEvents='box-only'>
           {children}
 
@@ -189,6 +186,7 @@ export default class Ripple extends PureComponent {
             {ripples.map(this.renderRipple)}
           </View>
         </Animated.View>
+       </View>
     );
   }
 }
