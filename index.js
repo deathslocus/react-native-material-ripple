@@ -70,55 +70,26 @@ export default class Ripple extends PureComponent {
     this.setState({ width, height });
   }
 
-  onPress(event) {
-    let { ripples } = this.state;
-    let { onPress, rippleSequential } = this.props;
-
-    if (!rippleSequential || !ripples.length) {
-      if ('function' === typeof onPress) {
-        requestAnimationFrame(() => onPress(event));
+   _parsePosition(pos){
+      switch(pos){
+         case "center":
+            return {locationX: 0.5 * this.state.width, locationY: 0.5 * this.state.height}
+         case "bottomLeft":
+            return {locationX: 0, locationY: this.state.height}
+         case "bottomRight":
+            return {locationX: this.state.width, locationY: this.state.height}
+         case "topLeft":
+            return {locationX: 0, locationY: this.state.height}
+         case "topRight":
+            return {locationX: this.state.width, locationY: 0}
       }
+   }
 
-      this.startRipple(event);
-    }
-  }
-
-  onLongPress(event) {
-    let { onLongPress } = this.props;
-
-    if ('function' === typeof onLongPress) {
-      requestAnimationFrame(() => onLongPress(event));
-    }
-
-    this.startRipple(event);
-  }
-
-  onPressIn(event) {
-    let { onPressIn } = this.props;
-
-    if ('function' === typeof onPressIn) {
-      onPressIn(event);
-    }
-  }
-
-  onPressOut(event) {
-    let { onPressOut } = this.props;
-
-    if ('function' === typeof onPressOut) {
-      onPressOut(event);
-    }
-  }
-
-  startRipple(event) {
+  startRipple(position) {
     let { rippleDuration, rippleCentered, rippleSize } = this.props;
     let { width, height } = this.state;
 
-    let w2 = 0.5 * width;
-    let h2 = 0.5 * height;
-
-    let { locationX, locationY } = rippleCentered?
-      { locationX: w2, locationY: h2 }:
-      event.nativeEvent;
+    let { locationX, locationY } = this._parsePosition(position);
 
     let offsetX = Math.abs(w2 - locationX);
     let offsetY = Math.abs(h2 - locationY);
@@ -212,7 +183,6 @@ export default class Ripple extends PureComponent {
     };
 
     return (
-      <TouchableWithoutFeedback {...touchableProps}>
         <Animated.View {...props} pointerEvents='box-only'>
           {children}
 
@@ -220,7 +190,6 @@ export default class Ripple extends PureComponent {
             {ripples.map(this.renderRipple)}
           </View>
         </Animated.View>
-      </TouchableWithoutFeedback>
     );
   }
 }
