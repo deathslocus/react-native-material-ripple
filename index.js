@@ -35,10 +35,6 @@ export default class Ripple extends PureComponent {
     super(props);
 
     this.onLayout = this.onLayout.bind(this);
-    this.onPress = this.onPress.bind(this);
-    this.onPressIn = this.onPressIn.bind(this);
-    this.onPressOut = this.onPressOut.bind(this);
-    this.onLongPress = this.onLongPress.bind(this);
     this.renderRipple = this.renderRipple.bind(this);
 
     this.unique = 0;
