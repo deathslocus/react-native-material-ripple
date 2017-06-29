@@ -85,6 +85,9 @@ export default class Ripple extends PureComponent {
     let { rippleDuration, rippleCentered, rippleSize } = this.props;
     let { width, height } = this.state;
 
+    let w2 = 0.5 * width;
+    let h2 = 0.5 * height;
+
     let { locationX, locationY } = this._parsePosition(position);
 
     let offsetX = Math.abs(w2 - locationX);
